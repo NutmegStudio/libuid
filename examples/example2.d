@@ -63,7 +63,7 @@ void main() {
     }
 
     auto colorButton = new ColorButton;
-    Brush brush;
+    Brush brush = new Brush;
     brush.setSolidBrush(colorDodgerBlue, 1.0);
     colorButton.setColor(brush.r, brush.g, brush.b, brush.a)
         .addOnChanged(delegate(ColorButton) { histogram.queueRedrawAll; });
@@ -86,7 +86,7 @@ void main() {
     }
 
     histogram.addDraw(delegate(Area a, DrawParams p) {
-            Brush brush;
+            Brush brush = new Brush;
             brush.setSolidBrush(colorWhite, 1.0);
             auto path = Path(FillMode.Winding);
             path.addRectangle(0, 0, p.areaWidth, p.areaHeight)
@@ -95,7 +95,7 @@ void main() {
             
             auto gs = graphSize(p.areaWidth, p.areaHeight);
             
-            StrokeParams sp;
+            StrokeParams sp = new StrokeParams;
             sp.cap = LineCap.Flat;
             sp.join = LineJoin.Miter;
             sp.thickness = 2;
@@ -109,7 +109,7 @@ void main() {
                 .end;
             p.context.stroke(path, brush, sp);
             
-            Matrix m;
+            Matrix m = new Matrix();
             m.setIdentity.translate(xoffLeft, yoffTop);
             p.context.transform(m);
             
