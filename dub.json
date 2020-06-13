@@ -17,16 +17,14 @@
             "name": "example1",
             "targetType": "executable",
             "targetName": "example1",
-            "libs-posix": ["ui"],
-            "libs-windows": ["libui"],
+            "lflags":["/usr/local/lib/x86_64-linux-gnu/libui.so"],
             "mainSourceFile": "examples/example1.d"
         },
         {
             "name": "example2",
             "targetType": "executable",
             "targetName": "example2",
-            "libs-posix": ["ui"],
-            "libs-windows": ["libui"],
+            "lflags":["/usr/local/lib/x86_64-linux-gnu/libui.so"],
             "mainSourceFile": "examples/example2.d"
         }
     ]
