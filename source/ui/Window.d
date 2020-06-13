@@ -17,7 +17,7 @@ public:
         _window = uiNewWindow(title.toStringz, width, height, cast(int) hasMenubar);
         super(cast(uiControl *) _window);
 
-        uiWindowOnPositionChanged(_window, &OnPositionChangedCallback, cast(void*) this);
+        // uiWindowOnPositionChanged(_window, &OnPositionChangedCallback, cast(void*) this);
         uiWindowOnContentSizeChanged(_window, &OnContentSizeChangedCallback, cast(void*) this);
         uiWindowOnClosing(_window, &OnClosingCallback, cast(void *) this);
     }
@@ -31,21 +31,21 @@ public:
         return this;
     }
 
-    auto position() {
-        auto pos = Tuple!(int, "x", int, "y")();
-        uiWindowPosition(_window, &pos.x, &pos.y);
-        return pos;
-    }
+    // auto position() {
+    //     auto pos = Tuple!(int, "x", int, "y")();
+    //     uiWindowPosition(_window, &pos.x, &pos.y);
+    //     return pos;
+    // }
 
-    Window setPosition(int x, int y) {
-        uiWindowSetPosition(_window, x, y);
-        return this;
-    }
+    // Window setPosition(int x, int y) {
+    //     uiWindowSetPosition(_window, x, y);
+    //     return this;
+    // }
 
-    Window center() {
-        uiWindowCenter(_window);
-        return this;
-    }
+    // Window center() {
+    //     uiWindowCenter(_window);
+    //     return this;
+    // }
 
     auto contentSize() {
         auto size = Tuple!(int, "width", int, "height")();

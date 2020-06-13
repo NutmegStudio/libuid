@@ -126,9 +126,9 @@ void uiUserBugCannotSetParentOnToplevel(const(char) *type);
 struct uiWindow;
 char *uiWindowTitle(uiWindow *w);
 void uiWindowSetTitle(uiWindow *w, const(char) *title);
-void uiWindowPosition(uiWindow *w, int *x, int *y);
-void uiWindowSetPosition(uiWindow *w, int x, int y);
-void uiWindowCenter(uiWindow *w);
+// void uiWindowPosition(uiWindow *w, int *x, int *y);
+// void uiWindowSetPosition(uiWindow *w, int x, int y);
+// void uiWindowCenter(uiWindow *w);
 void uiWindowOnPositionChanged(uiWindow *w, void function(uiWindow *, void *) f, void *data);
 void uiWindowContentSize(uiWindow *w, int *width, int *height);
 void uiWindowSetContentSize(uiWindow *w, int width, int height);
@@ -240,7 +240,11 @@ void uiRadioButtonsSetSelected(uiRadioButtons *r, int n);
 void uiRadioButtonsOnSelected(uiRadioButtons *r, void function(uiRadioButtons *, void *) f, void *data);
 uiRadioButtons *uiNewRadioButtons();
 
+struct tm;
 struct uiDateTimePicker;
+void uiDateTimePickerTime(uiDateTimePicker *d, tm *time);
+void uiDateTimePickerSetTime(uiDateTimePicker *d, const tm *time);
+void uiDateTimePickerOnChanged(uiDateTimePicker *d, void function(uiDateTimePicker *d, void *data) f, void *data);
 uiDateTimePicker *uiNewDateTimePicker();
 uiDateTimePicker *uiNewDatePicker();
 uiDateTimePicker *uiNewTimePicker();
@@ -484,7 +488,7 @@ struct uiDrawTextFontMetrics {
     double UnderlineThickness;
 }
 
-uiDrawTextFont *uiDrawLoadClosestFont(const(uiDrawTextFontDescriptor) *desc);
+// uiDrawTextFont *uiDrawLoadClosestFont(const(uiDrawTextFontDescriptor) *desc);
 void uiDrawFreeTextFont(uiDrawTextFont *font);
 uintptr_t uiDrawTextFontHandle(uiDrawTextFont *font);
 void uiDrawTextFontDescribe(uiDrawTextFont *font, uiDrawTextFontDescriptor *desc);

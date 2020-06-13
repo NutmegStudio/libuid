@@ -368,9 +368,9 @@ class TextFontDescriptor {
         }
     }
 
-    TextFont loadClosestFont() {
-        return TextFont(uiDrawLoadClosestFont(_descriptor));
-    }
+    // TextFont loadClosestFont() {
+    //     return TextFont(uiDrawLoadClosestFont(_descriptor));
+    // }
 }
 
 class TextFontMetrics {
