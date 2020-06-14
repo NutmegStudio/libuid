@@ -16,4 +16,46 @@ project('Example', ['d', 'c', 'cpp'], default_options: [
 	license: 'MIT')
 
 
-subproject('libui', override_options : ['rfdg=3', 'werror=false'])
+subproject('libui')
+
+libuid_sources = [
+	'source/ui/App.d',
+	'source/ui/Area.d',
+	'source/ui/Box.d',
+	'source/ui/Button.d',
+	'source/ui/Checkbox.d',
+	'source/ui/ColorButton.d',
+	'source/ui/Combobox.d',
+	'source/ui/Control.d',
+	'source/ui/Core.d',
+	'source/ui/DateTimePicker.d',
+	'source/ui/Draw.d',
+	'source/ui/EditableCombobox.d',
+	'source/ui/Entry.d',
+	'source/ui/FontButton.d',
+	'source/ui/Form.d',
+	'source/ui/Grid.d',
+	'source/ui/Group.d',
+	'source/ui/Label.d',
+	'source/ui/Menu.d',
+	'source/ui/MenuItem.d',
+	'source/ui/MultilineEntry.d',
+	'source/ui/package.d',
+	'source/ui/ProgressBar.d',
+	'source/ui/RadioButtons.d',
+	'source/ui/Separator.d',
+	'source/ui/Slider.d',
+	'source/ui/Spinbox.d',
+	'source/ui/Tab.d',
+	'source/ui/Window.d'
+	]
+
+source_root = meson.source_root()
+sources_dir = include_directories('source/')
+
+examples_dir = include_directories('examples/')
+
+lstatic = static_library('libuid',libuid_sources, include_directories : sources_dir, install : false)
+libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.so.0'
+executable('example1', 'examples/example1.d', link_with : lstatic, link_args: [libui_args], include_directories : [examples_dir, sources_dir])
+executable('example2', 'examples/example2.d', link_with : lstatic, link_args: [libui_args], include_directories : [examples_dir, sources_dir])
