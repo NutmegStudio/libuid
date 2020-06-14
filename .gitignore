@@ -27,3 +27,4 @@ dub.userprefs
 
 # Output
 output/
+build/
