@@ -28,3 +28,4 @@ dub.userprefs
 # Output
 output/
 build/
+builddir/
