@@ -61,15 +61,15 @@ enum TextStretch : uint {
 }
 
 enum ModifiersT : uint {
-    Ctrl    = 1 << 0,
-    Alt     = 1 << 1,
-    Shift   = 1 << 2,
-    Super   = 1 << 3,
+    Ctrl = 1 << 0,
+    Alt = 1 << 1,
+    Shift = 1 << 2,
+    Super = 1 << 3,
 }
 
 enum ExtKeyT : uint {
     Escape = 1,
-    Insert,         // equivalent to "Help" on Apple keyboards
+    Insert, // equivalent to "Help" on Apple keyboards
     Delete,
     Home,
     End,
@@ -79,7 +79,7 @@ enum ExtKeyT : uint {
     Down,
     Left,
     Right,
-    F1,         // F1..F12 are guaranteed to be consecutive
+    F1, // F1..F12 are guaranteed to be consecutive
     F2,
     F3,
     F4,
@@ -91,8 +91,8 @@ enum ExtKeyT : uint {
     F10,
     F11,
     F12,
-    N0,         // numpad keys; independent of Num Lock state
-    N1,         // N0..N9 are guaranteed to be consecutive
+    N0, // numpad keys; independent of Num Lock state
+    N1, // N0..N9 are guaranteed to be consecutive
     N2,
     N3,
     N4,

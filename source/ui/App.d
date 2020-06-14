@@ -13,9 +13,11 @@ struct App {
         auto io = uiInitOptions();
         auto msg = uiInit(&io);
         if (msg) {
-            scope(exit) uiFreeInitError(msg);
-            import core.stdc.string: strlen;
-            assert(false, "libui init error: " ~ msg[0..strlen(msg)]);
+            scope (exit)
+                uiFreeInitError(msg);
+            import core.stdc.string : strlen;
+
+            assert(false, "libui init error: " ~ msg[0 .. strlen(msg)]);
         }
 
         uiQueueMain(&QueueMainCallback, null);
@@ -26,9 +28,11 @@ struct App {
         auto io = uiInitOptions();
         auto msg = uiInit(&io);
         if (msg) {
-            scope(exit) uiFreeInitError(msg);
-            import core.stdc.string: strlen;
-            assert(false, "libui init error: " ~ msg[0..strlen(msg)]);
+            scope (exit)
+                uiFreeInitError(msg);
+            import core.stdc.string : strlen;
+
+            assert(false, "libui init error: " ~ msg[0 .. strlen(msg)]);
         }
 
         uiQueueMain(&QueueMainCallback, null);
@@ -40,7 +44,8 @@ struct App {
     }
 
     static void run(Control main) {
-        import std.exception: enforce;
+        import std.exception : enforce;
+
         if (_appRun) {
             enforce(false, "Application cannot be run twice");
         }
@@ -51,10 +56,10 @@ struct App {
 
         _main = main;
         OnShouldQuit(delegate() {
-                if (!_main.parent) {
-                    uiControlDestroy(_main._control);
-                }
-            });
+            if (!_main.parent) {
+                uiControlDestroy(_main._control);
+            }
+        });
         uiMain;
     }
 

@@ -3,7 +3,7 @@
 import ui.Control;
 
 class Box : Control {
-    protected uiBox * _box;
+    protected uiBox* _box;
 
     this(bool vertical = true) {
         if (vertical) {
@@ -11,11 +11,12 @@ class Box : Control {
         } else {
             _box = uiNewHorizontalBox();
         }
-        super(cast(uiControl *) _box);
+        super(cast(uiControl*) _box);
     }
 
     Box append(Control child, bool stretchy = false) {
-        import std.exception: enforce;
+        import std.exception : enforce;
+
         enforce(child, "atempt to append a child which is null.");
         _children ~= child;
         child._parent = this;
@@ -24,7 +25,8 @@ class Box : Control {
     }
 
     Box deleteByIndex(size_t index) {
-        import std.algorithm: remove;
+        import std.algorithm : remove;
+
         _children[index]._parent = null;
         _children.remove(index);
         uiBoxDelete(_box, cast(int) index);

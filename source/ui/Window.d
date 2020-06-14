@@ -3,10 +3,10 @@
 import ui.Control;
 
 class Window : Control {
-    import std.typecons: Tuple;
-    import std.string: toStringz;
+    import std.typecons : Tuple;
+    import std.string : toStringz;
 
-    protected uiWindow * _window;
+    protected uiWindow* _window;
 
     mixin EventListenerMixin!("OnPositionChanged", Window);
     mixin EventListenerMixin!("OnContentSizeChanged", Window);
@@ -15,11 +15,11 @@ class Window : Control {
 public:
     this(string title = "", int width = 240, int height = 180, bool hasMenubar = false) {
         _window = uiNewWindow(title.toStringz, width, height, cast(int) hasMenubar);
-        super(cast(uiControl *) _window);
+        super(cast(uiControl*) _window);
 
         // uiWindowOnPositionChanged(_window, &OnPositionChangedCallback, cast(void*) this);
         uiWindowOnContentSizeChanged(_window, &OnContentSizeChangedCallback, cast(void*) this);
-        uiWindowOnClosing(_window, &OnClosingCallback, cast(void *) this);
+        uiWindowOnClosing(_window, &OnClosingCallback, cast(void*) this);
     }
 
     string title() {

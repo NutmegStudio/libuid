@@ -3,13 +3,13 @@
 import ui.Control;
 
 class Group : Control {
-    import std.string: toStringz;
+    import std.string : toStringz;
 
-    protected uiGroup * _group;
+    protected uiGroup* _group;
 
     this(string title = "") {
         _group = uiNewGroup(title.toStringz);
-        super(cast(uiControl *) _group);
+        super(cast(uiControl*) _group);
     }
 
     string title() {

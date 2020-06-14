@@ -3,9 +3,9 @@
 import ui.Core;
 
 struct Context {
-    package uiDrawContext * _context;
+    package uiDrawContext* _context;
 
-    this(uiDrawContext * context) {
+    this(uiDrawContext* context) {
         _context = context;
     }
 
@@ -46,8 +46,8 @@ struct Context {
 }
 
 struct Path {
-    private uiDrawPath * _path;
-    static int[uiDrawPath *] _ref;
+    private uiDrawPath* _path;
+    static int[uiDrawPath* ] _ref;
 
     this(FillMode mode) {
         _path = uiDrawNewPath(mode);
@@ -71,12 +71,10 @@ struct Path {
         return this;
     }
 
-    ref newFigureWithArc(
-        double xCenter, double yCenter,
-        double radius, double startAngle, double sweep, bool negative
-    ) {
-        uiDrawPathNewFigureWithArc(_path, xCenter, yCenter,
-            radius, startAngle, sweep, cast(int) negative);
+    ref newFigureWithArc(double xCenter, double yCenter, double radius,
+            double startAngle, double sweep, bool negative) {
+        uiDrawPathNewFigureWithArc(_path, xCenter, yCenter, radius, startAngle,
+                sweep, cast(int) negative);
         return this;
     }
 
@@ -85,12 +83,9 @@ struct Path {
         return this;
     }
 
-    ref arcTo(
-        double xCenter, double yCenter, double radius,
-        double startAngle, double sweep, bool negative
-    ) {
-        uiDrawPathArcTo(_path, xCenter, yCenter,
-            radius, startAngle, sweep, cast(int) negative);
+    ref arcTo(double xCenter, double yCenter, double radius, double startAngle,
+            double sweep, bool negative) {
+        uiDrawPathArcTo(_path, xCenter, yCenter, radius, startAngle, sweep, cast(int) negative);
         return this;
     }
 
@@ -116,27 +111,32 @@ struct Path {
 }
 
 class Matrix {
-    private uiDrawMatrix * _matrix;
-    this()
-    {
+    private uiDrawMatrix* _matrix;
+    this() {
         _matrix = new uiDrawMatrix;
     }
+
     @property pragma(inline, true) {
         ref m11() {
             return _matrix.M11;
         }
+
         ref m12() {
             return _matrix.M12;
         }
+
         ref m21() {
             return _matrix.M21;
         }
+
         ref m22() {
             return _matrix.M22;
         }
+
         ref m31() {
             return _matrix.M31;
         }
+
         ref m32() {
             return _matrix.M32;
         }
@@ -192,12 +192,12 @@ class Matrix {
 }
 
 class Brush {
-    private uiDrawBrush * _brush;
-    
-    this()
-    {
-         _brush = new uiDrawBrush;
+    private uiDrawBrush* _brush;
+
+    this() {
+        _brush = new uiDrawBrush;
     }
+
     @property pragma(inline, true) {
         ref type() {
             return _brush.Type;
@@ -206,12 +206,15 @@ class Brush {
         ref r() {
             return _brush.R;
         }
+
         ref g() {
             return _brush.G;
         }
+
         ref b() {
             return _brush.B;
         }
+
         ref a() {
             return _brush.A;
         }
@@ -219,24 +222,31 @@ class Brush {
         ref x0() {
             return _brush.X0;
         }
+
         ref y0() {
             return _brush.X1;
         }
+
         ref x1() {
             return _brush.Y0;
         }
+
         ref y1() {
             return _brush.Y1;
         }
+
         ref oterRadius() {
             return _brush.OuterRadius;
         }
+
         auto stops() {
             return new BrushGradientStop(_brush.Stops);
         }
+
         void stops(BrushGradientStop stop) {
             _brush.Stops = stop._stop;
         }
+
         ref numStops() {
             return _brush.NumStops;
         }
@@ -244,28 +254,32 @@ class Brush {
 }
 
 class BrushGradientStop {
-    private uiDrawBrushGradientStop * _stop;
-    this()
-    {
+    private uiDrawBrushGradientStop* _stop;
+    this() {
         _stop = new uiDrawBrushGradientStop;
     }
-    this(uiDrawBrushGradientStop*  _stops)
-    {
-        _stop=_stops;
+
+    this(uiDrawBrushGradientStop* _stops) {
+        _stop = _stops;
     }
+
     @property pragma(inline, true) {
         ref pos() {
             return _stop.Pos;
         }
+
         ref r() {
             return _stop.R;
         }
+
         ref g() {
             return _stop.G;
         }
+
         ref b() {
             return _stop.B;
         }
+
         ref a() {
             return _stop.A;
         }
@@ -273,30 +287,36 @@ class BrushGradientStop {
 }
 
 class StrokeParams {
-    private uiDrawStrokeParams * _params;
-    this()
-    {
+    private uiDrawStrokeParams* _params;
+    this() {
         _params = new uiDrawStrokeParams;
     }
+
     @property pragma(inline, true) {
         ref cap() {
             return _params.Cap;
         }
+
         ref join() {
             return _params.Join;
         }
+
         ref thickness() {
             return _params.Thickness;
         }
+
         ref miterLimit() {
             return _params.MiterLimit;
         }
+
         ref dashes() {
             return _params.Dashes;
         }
+
         ref numDashes() {
             return _params.NumDashes;
         }
+
         ref dashPhase() {
             return _params.DashPhase;
         }
@@ -304,13 +324,14 @@ class StrokeParams {
 }
 
 struct FontFamilies {
-    private uiDrawFontFamilies * _families;
-    static int[uiDrawFontFamilies *] _ref;
+    private uiDrawFontFamilies* _families;
+    static int[uiDrawFontFamilies* ] _ref;
 
     static FontFamilies create() {
         return FontFamilies(uiDrawListFontFamilies);
     }
-    private this(uiDrawFontFamilies * families) {
+
+    private this(uiDrawFontFamilies* families) {
         _families = families;
         _ref[_families] = 1;
     }
@@ -339,30 +360,37 @@ struct FontFamilies {
 }
 
 class TextFontDescriptor {
-    private uiDrawTextFontDescriptor * _descriptor;
-    this()
-    {
+    private uiDrawTextFontDescriptor* _descriptor;
+    this() {
         _descriptor = new uiDrawTextFontDescriptor;
     }
+
     @property pragma(inline, true) {
         string family() {
-            import core.stdc.string: strlen;
+            import core.stdc.string : strlen;
+
             auto c = _descriptor.Family;
-            return c[0..strlen(c)].idup;
+            return c[0 .. strlen(c)].idup;
         }
+
         void family(string text) {
-            import std.string: toStringz;
+            import std.string : toStringz;
+
             _descriptor.Family = text.toStringz;
         }
+
         ref size() {
             return _descriptor.Size;
         }
+
         ref weight() {
             return _descriptor.Weight;
         }
+
         ref italic() {
             return _descriptor.Italic;
         }
+
         ref stretch() {
             return _descriptor.Stretch;
         }
@@ -374,24 +402,28 @@ class TextFontDescriptor {
 }
 
 class TextFontMetrics {
-    private uiDrawTextFontMetrics * _metrics;
-    this()
-    {
+    private uiDrawTextFontMetrics* _metrics;
+    this() {
         _metrics = new uiDrawTextFontMetrics;
     }
+
     @property pragma(inline, true) {
         ref ascent() {
             return _metrics.Ascent;
         }
+
         ref descent() {
             return _metrics.Descent;
         }
+
         ref leading() {
             return _metrics.Leading;
         }
+
         ref underlinePos() {
             return _metrics.UnderlinePos;
         }
+
         ref underlineThickness() {
             return _metrics.UnderlineThickness;
         }
@@ -399,10 +431,10 @@ class TextFontMetrics {
 }
 
 struct TextFont {
-    private uiDrawTextFont * _font;
-    static int[uiDrawTextFont *] _ref;
+    private uiDrawTextFont* _font;
+    static int[uiDrawTextFont* ] _ref;
 
-    this(uiDrawTextFont * font) {
+    this(uiDrawTextFont* font) {
         _font = font;
         _ref[_font] = 1;
     }
@@ -435,11 +467,12 @@ struct TextFont {
 }
 
 struct TextLayout {
-    private uiDrawTextLayout * _layout;
-    static int[uiDrawTextLayout *] _ref;
+    private uiDrawTextLayout* _layout;
+    static int[uiDrawTextLayout* ] _ref;
 
     this(string text, TextFont font, double width) {
-        import std.string: toStringz;
+        import std.string : toStringz;
+
         _layout = uiDrawNewTextLayout(text.toStringz, font._font, width);
         _ref[_layout] = 1;
     }

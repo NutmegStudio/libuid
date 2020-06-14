@@ -4,24 +4,25 @@ import ui.Core;
 import ui.Window;
 
 class MenuItem {
-    protected uiMenuItem * _menuItem;
+    protected uiMenuItem* _menuItem;
 
     private void delegate(MenuItem v)[] OnClickedListeners;
-    private extern (C) static void OnClickedCallback(uiMenuItem *, uiWindow *window, void *data) {
+    private extern (C) static void OnClickedCallback(uiMenuItem*, uiWindow* window, void* data) {
         auto v = cast(MenuItem) data;
         foreach (dlg; v.OnClickedListeners) {
             dlg(v);
         }
     }
+
     public MenuItem addOnClicked(void delegate(MenuItem v) f) {
         OnClickedListeners ~= f;
         return this;
     }
 
-    this(uiMenuItem * menuItem) {
+    this(uiMenuItem* menuItem) {
         _menuItem = menuItem;
 
-        uiMenuItemOnClicked(_menuItem, &OnClickedCallback, cast(void *) this);
+        uiMenuItemOnClicked(_menuItem, &OnClickedCallback, cast(void*) this);
     }
 
     MenuItem enable() {

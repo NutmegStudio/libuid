@@ -3,11 +3,11 @@
 public import ui.Core;
 
 class Control {
-    package uiControl *         _control;
-    package Control             _parent;
-    package Control[]           _children;
+    package uiControl* _control;
+    package Control _parent;
+    package Control[] _children;
 
-    protected this(uiControl *other) {
+    protected this(uiControl* other) {
         _control = other;
     }
 
@@ -21,7 +21,8 @@ class Control {
 
     Control setParent(Control parent) {
         if (_parent) {
-            import std.algorithm: remove;
+            import std.algorithm : remove;
+
             _parent._children.remove!(e => e is this);
         }
         _parent = parent;

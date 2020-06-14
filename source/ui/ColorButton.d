@@ -3,19 +3,20 @@
 import ui.Control;
 
 class ColorButton : Control {
-    protected uiColorButton * _colorButton;
+    protected uiColorButton* _colorButton;
 
     mixin EventListenerMixin!("OnChanged", ColorButton);
 
     this() {
         _colorButton = uiNewColorButton();
-        super(cast(uiControl *) _colorButton);
+        super(cast(uiControl*) _colorButton);
 
-        uiColorButtonOnChanged(_colorButton, &OnChangedCallback, cast(void *) this);
+        uiColorButtonOnChanged(_colorButton, &OnChangedCallback, cast(void*) this);
     }
 
     auto color() {
-        import std.typecons: Tuple;
+        import std.typecons : Tuple;
+
         auto r = Tuple!(double, "r", double, "g", double, "b", double, "a")();
         uiColorButtonColor(_colorButton, &r.r, &r.g, &r.b, &r.a);
         return r;

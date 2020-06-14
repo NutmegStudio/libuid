@@ -3,15 +3,15 @@
 import ui.Control;
 
 class Spinbox : Control {
-    protected uiSpinbox * _spinbox;
+    protected uiSpinbox* _spinbox;
 
     mixin EventListenerMixin!("OnChanged", Spinbox);
 
     this(int min = -10, int max = 10) {
         _spinbox = uiNewSpinbox(min, max);
-        super(cast(uiControl *) _spinbox);
+        super(cast(uiControl*) _spinbox);
 
-        uiSpinboxOnChanged(_spinbox, &OnChangedCallback, cast(void *) this);
+        uiSpinboxOnChanged(_spinbox, &OnChangedCallback, cast(void*) this);
     }
 
     int value() {

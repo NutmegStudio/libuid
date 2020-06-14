@@ -3,17 +3,17 @@
 import ui.Control;
 
 class Checkbox : Control {
-    import std.string: toStringz;
+    import std.string : toStringz;
 
-    protected uiCheckbox * _checkbox;
+    protected uiCheckbox* _checkbox;
 
     mixin EventListenerMixin!("OnToggled", Checkbox);
 
     this(string text = "") {
         _checkbox = uiNewCheckbox(text.toStringz);
-        super(cast(uiControl *) _checkbox);
+        super(cast(uiControl*) _checkbox);
 
-        uiCheckboxOnToggled(_checkbox, &OnToggledCallback, cast(void *) this);
+        uiCheckboxOnToggled(_checkbox, &OnToggledCallback, cast(void*) this);
     }
 
     string text() {

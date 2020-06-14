@@ -3,17 +3,18 @@
 import ui.Control;
 
 class Tab : Control {
-    import std.string: toStringz;
+    import std.string : toStringz;
 
-    protected uiTab * _tab;
+    protected uiTab* _tab;
 
     this() {
         _tab = uiNewTab();
-        super(cast(uiControl *) _tab);
+        super(cast(uiControl*) _tab);
     }
 
     Tab append(string name, Control child) {
-        import std.exception: enforce;
+        import std.exception : enforce;
+
         enforce(child, "atempt to append a child which is null.");
         _children ~= child;
         child._parent = this;
@@ -22,16 +23,18 @@ class Tab : Control {
     }
 
     Tab insertAt(string name, size_t before, Control child) {
-        import std.exception: enforce;
+        import std.exception : enforce;
+
         enforce(child, "atempt to insert a child which is null.");
-        _children = _children[0..before] ~ child ~ _children[before..$];
+        _children = _children[0 .. before] ~ child ~ _children[before .. $];
         child._parent = this;
         uiTabInsertAt(_tab, name.toStringz, cast(int) before, child._control);
         return this;
     }
-    
+
     Tab deleteByIndex(size_t index) {
-        import std.algorithm: remove;
+        import std.algorithm : remove;
+
         _children[index]._parent = null;
         _children.remove(index);
         uiTabDelete(_tab, cast(int) index);

@@ -3,19 +3,20 @@
 import ui.Control;
 
 class Combobox : Control {
-    protected uiCombobox * _combobox;
+    protected uiCombobox* _combobox;
 
     mixin EventListenerMixin!("OnSelected", Combobox);
 
     this() {
         _combobox = uiNewCombobox();
-        super(cast(uiControl *) _combobox);
+        super(cast(uiControl*) _combobox);
 
-        uiComboboxOnSelected(_combobox, &OnSelectedCallback, cast(void *) this);
+        uiComboboxOnSelected(_combobox, &OnSelectedCallback, cast(void*) this);
     }
 
     Combobox append(string text) {
-        import std.string: toStringz;
+        import std.string : toStringz;
+
         uiComboboxAppend(_combobox, text.toStringz);
         return this;
     }

@@ -3,7 +3,7 @@
 import ui.Control;
 
 class Separator : Control {
-    protected uiSeparator * _separator;
+    protected uiSeparator* _separator;
 
     this(bool vertical = true) {
         if (vertical) {
@@ -12,6 +12,6 @@ class Separator : Control {
             _separator = uiNewHorizontalSeparator();
         }
 
-        super(cast(uiControl *) _separator);
+        super(cast(uiControl*) _separator);
     }
 }

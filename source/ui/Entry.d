@@ -8,28 +8,27 @@ enum EntryStyle {
     Search,
 }
 
-
-uiEntry * toEntry(EntryStyle style = EntryStyle.Normal) {
+uiEntry* toEntry(EntryStyle style = EntryStyle.Normal) {
     final switch (style) with (EntryStyle) {
-        case Normal:
-            return uiNewEntry();
-        case Password:
-            return uiNewPasswordEntry();
-        case Search:
-            return uiNewSearchEntry();
+    case Normal:
+        return uiNewEntry();
+    case Password:
+        return uiNewPasswordEntry();
+    case Search:
+        return uiNewSearchEntry();
     }
 }
 
 class Entry : Control {
-    protected uiEntry * _entry;
+    protected uiEntry* _entry;
 
     mixin EventListenerMixin!("OnChanged", Entry);
 
     this(EntryStyle style = EntryStyle.Normal) {
         _entry = style.toEntry;
-        super(cast(uiControl *) _entry);
+        super(cast(uiControl*) _entry);
 
-        uiEntryOnChanged(_entry, &OnChangedCallback, cast(void *) this);
+        uiEntryOnChanged(_entry, &OnChangedCallback, cast(void*) this);
     }
 
     string text() {
@@ -37,7 +36,8 @@ class Entry : Control {
     }
 
     Entry setText(string text) {
-        import std.string: toStringz;
+        import std.string : toStringz;
+
         uiEntrySetText(_entry, text.toStringz);
         return this;
     }

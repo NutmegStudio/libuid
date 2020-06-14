@@ -3,9 +3,9 @@
 import ui.Control;
 
 class MultilineEntry : Control {
-    import std.string: toStringz;
+    import std.string : toStringz;
 
-    protected uiMultilineEntry * _multilineEntry;
+    protected uiMultilineEntry* _multilineEntry;
 
     mixin EventListenerMixin!("OnChanged", MultilineEntry);
 
@@ -15,9 +15,9 @@ class MultilineEntry : Control {
         } else {
             _multilineEntry = uiNewNonWrappingMultilineEntry();
         }
-        super(cast(uiControl *) _multilineEntry);
+        super(cast(uiControl*) _multilineEntry);
 
-        uiMultilineEntryOnChanged(_multilineEntry, &OnChangedCallback, cast(void *) this);
+        uiMultilineEntryOnChanged(_multilineEntry, &OnChangedCallback, cast(void*) this);
     }
 
     string text() {
