@@ -3,15 +3,15 @@
 import ui.Control;
 
 class Slider : Control {
-    protected uiSlider * _slider;
+    protected uiSlider* _slider;
 
     mixin EventListenerMixin!("OnChanged", Slider);
 
     this(int min = -10, int max = 10) {
         _slider = uiNewSlider(min, max);
-        super(cast(uiControl *) _slider);
+        super(cast(uiControl*) _slider);
 
-        uiSliderOnChanged(_slider, &OnChangedCallback, cast(void *) this);
+        uiSliderOnChanged(_slider, &OnChangedCallback, cast(void*) this);
     }
 
     int value() {

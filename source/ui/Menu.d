@@ -4,13 +4,13 @@ import ui.Core;
 import ui.MenuItem;
 
 class Menu {
-    import std.string: toStringz;
+    import std.string : toStringz;
 
     // Notice: now libui's menu implicit attached to window, it's not OO.
     // this makes Menu and MenuItem do not destroy anyhow.
     private static Object[] _menuAndItems;
 
-    protected uiMenu * _menu;
+    protected uiMenu* _menu;
 
     this(string name = "") {
         _menuAndItems ~= this;

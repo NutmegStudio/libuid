@@ -3,8 +3,8 @@
 import ui.Control;
 
 class Area : Control {
-    protected uiArea * _area;
-    protected uiAreaHandler * _handler;
+    protected uiArea* _area;
+    protected uiAreaHandler* _handler;
 
     private {
         void initHandler() {
@@ -16,39 +16,43 @@ class Area : Control {
             _handler.KeyEvent = &KeyEventCallback;
         }
 
-        static Area[uiArea*] _areaMap;
+        static Area[uiArea* ] _areaMap;
         void delegate(Area a, DrawParams params)[] DrawListeners;
         void delegate(Area a, MouseEvent event)[] MouseEventListeners;
         void delegate(Area a, int left)[] MouseCrossedListeners;
         void delegate(Area a)[] DragBrokenListeners;
         void delegate(Area a, KeyEvent event)[] KeyEventListeners;
 
-        extern(C) static {
-            void DrawCallback(uiAreaHandler *ah, uiArea *a, uiAreaDrawParams *p) {
+        extern (C) static {
+            void DrawCallback(uiAreaHandler* ah, uiArea* a, uiAreaDrawParams* p) {
                 auto area = _areaMap[a];
                 foreach (dlg; area.DrawListeners) {
                     dlg(area, DrawParams(p));
                 }
             }
-            void MouseEventCallback(uiAreaHandler *ah, uiArea *a, uiAreaMouseEvent *e) {
+
+            void MouseEventCallback(uiAreaHandler* ah, uiArea* a, uiAreaMouseEvent* e) {
                 auto area = _areaMap[a];
                 foreach (dlg; area.MouseEventListeners) {
                     dlg(area, MouseEvent(e));
                 }
             }
-            void MouseCrossedCallback(uiAreaHandler *ah, uiArea *a, int left) {
+
+            void MouseCrossedCallback(uiAreaHandler* ah, uiArea* a, int left) {
                 auto area = _areaMap[a];
                 foreach (dlg; area.MouseCrossedListeners) {
                     dlg(area, left);
                 }
             }
-            void DragBrokenCallback(uiAreaHandler *ah, uiArea *a) {
+
+            void DragBrokenCallback(uiAreaHandler* ah, uiArea* a) {
                 auto area = _areaMap[a];
                 foreach (dlg; area.DragBrokenListeners) {
                     dlg(area);
                 }
             }
-            int KeyEventCallback(uiAreaHandler *ah, uiArea *a, uiAreaKeyEvent *e) {
+
+            int KeyEventCallback(uiAreaHandler* ah, uiArea* a, uiAreaKeyEvent* e) {
                 auto area = _areaMap[a];
                 foreach (dlg; area.KeyEventListeners) {
                     dlg(area, KeyEvent(e));
@@ -63,18 +67,22 @@ class Area : Control {
             DrawListeners ~= f;
             return this;
         }
+
         Area addMouseEvent(void delegate(Area a, MouseEvent event) f) {
             MouseEventListeners ~= f;
             return this;
         }
+
         Area addMouseCrossed(void delegate(Area a, int left) f) {
             MouseCrossedListeners ~= f;
             return this;
         }
+
         Area addDragBroken(void delegate(Area a) f) {
             DragBrokenListeners ~= f;
             return this;
         }
+
         Area addKeyEvent(void delegate(Area a, KeyEvent event) f) {
             KeyEventListeners ~= f;
             return this;
@@ -89,7 +97,7 @@ class Area : Control {
             _area = uiNewScrollingArea(_handler, width, height);
         }
         _areaMap[_area] = this;
-        super(cast(uiControl *) _area);
+        super(cast(uiControl*) _area);
     }
 
     Area setSize(int width, int height) {
@@ -109,13 +117,15 @@ class Area : Control {
 }
 
 struct DrawParams {
-    private uiAreaDrawParams * _params;
+    private uiAreaDrawParams* _params;
 
     @property pragma(inline, true) {
-        import ui.Draw: Context;
+        import ui.Draw : Context;
+
         auto context() {
             return Context(_params.Context);
         }
+
         void context(Context context) {
             _params.Context = context._context;
         }
@@ -123,6 +133,7 @@ struct DrawParams {
         ref areaWidth() {
             return _params.AreaWidth;
         }
+
         ref areaHeight() {
             return _params.AreaHeight;
         }
@@ -130,29 +141,33 @@ struct DrawParams {
         ref clipX() {
             return _params.ClipX;
         }
+
         ref clipY() {
             return _params.ClipY;
         }
+
         ref clipWidth() {
             return _params.ClipWidth;
         }
+
         ref clipHeight() {
             return _params.ClipHeight;
         }
     }
 
-    this(uiAreaDrawParams * params) {
+    this(uiAreaDrawParams* params) {
         _params = params;
     }
 }
 
 struct MouseEvent {
-    private uiAreaMouseEvent * _event;
+    private uiAreaMouseEvent* _event;
 
     @property pragma(inline, true) {
         ref x() {
             return _event.X;
         }
+
         ref y() {
             return _event.Y;
         }
@@ -160,6 +175,7 @@ struct MouseEvent {
         ref areaWidth() {
             return _event.AreaWidth;
         }
+
         ref areaHeight() {
             return _event.AreaHeight;
         }
@@ -167,6 +183,7 @@ struct MouseEvent {
         ref down() {
             return _event.Down;
         }
+
         ref up() {
             return _event.Up;
         }
@@ -184,21 +201,23 @@ struct MouseEvent {
         }
     }
 
-    this(uiAreaMouseEvent * event) {
+    this(uiAreaMouseEvent* event) {
         _event = event;
     }
 }
 
 struct KeyEvent {
-    private uiAreaKeyEvent * _event;
+    private uiAreaKeyEvent* _event;
 
     @property pragma(inline, true) {
         ref key() {
             return _event.Key;
         }
+
         ref extKey() {
             return _event.ExtKey;
         }
+
         ref modifier() {
             return _event.Modifier;
         }
@@ -212,7 +231,7 @@ struct KeyEvent {
         }
     }
 
-    this(uiAreaKeyEvent * event) {
+    this(uiAreaKeyEvent* event) {
         _event = event;
     }
 }

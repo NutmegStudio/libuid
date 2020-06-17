@@ -55,7 +55,19 @@ sources_dir = include_directories('source/')
 
 examples_dir = include_directories('examples/')
 
-lstatic = static_library('libuid',libuid_sources, include_directories : sources_dir, install : false)
-libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.so.0'
-executable('example1', 'examples/example1.d', link_with : lstatic, link_args: [libui_args], include_directories : [examples_dir, sources_dir])
-executable('example2', 'examples/example2.d', link_with : lstatic, link_args: [libui_args], include_directories : [examples_dir, sources_dir])
+libuid = static_library('libuid',libuid_sources, include_directories : sources_dir, install : false)
+# TODO: add support for Windows and Mac dynamic library
+
+libuid_OS = host_machine.system()
+
+if libui_OS == 'windows'
+	libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.dll'
+elif libui_OS == 'darwin'
+	libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.dylib
+else
+	libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.so.0'
+endif
+
+
+executable('example1', 'examples/example1.d', link_with : libuid, link_args: [libui_args], include_directories : [examples_dir, sources_dir])
+executable('example2', 'examples/example2.d', link_with : libuid, link_args: [libui_args], include_directories : [examples_dir, sources_dir])
