@@ -1,22 +1,18 @@
 project('Example', ['d', 'c', 'cpp'], default_options: [
 		'buildtype=release',				# build debug by default
-		'default_library=shared',			# build shared libraries by default
-		'layout=flat',					# keep all outputs together by default
+		'default_library=static',			# build shared libraries by default			# keep all outputs together by default
 
 		# these are forced options, but meson doesn't let me set these up separately before I call project() (TODO https://github.com/mesonbuild/meson/issues/5179)
 		'warning_level=3',				# always max warnings
 		'b_pch=false',					# we don't want precompiled headers
 		'b_staticpic=true',				# use PIC even for static libraries
 		'c_std=c99',					# strict C99
-		'c_winlibs=',					# we define our own Windows libraries
 		'cpp_std=c++11',				# strict C++11
 		'cpp_eh=sc',					# shut the compiler up in some cases
-		'cpp_winlibs=',					# likewise as with c_winlibs
-	],
-	license: 'MIT')
+	])
 
 
-subproject('libui')
+libui = subproject('libui')
 
 libuid_sources = [
 	'source/ui/App.d',
@@ -55,19 +51,25 @@ sources_dir = include_directories('source/')
 
 examples_dir = include_directories('examples/')
 
-libuid = static_library('libuid',libuid_sources, include_directories : sources_dir, install : false)
+libuid = static_library('libuid', libuid_sources, include_directories : sources_dir, 
+		link_args: ['-l:' + meson.current_build_dir() + '/meson-out/libui.a'], install : false)
+
 # TODO: add support for Windows and Mac dynamic library
 
 libuid_OS = host_machine.system()
 
+libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.a'
 if libuid_OS == 'windows'
-	libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.dll'
+	pass
 elif libuid_OS == 'darwin'
-	libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.A.dylib'
+	pass
 else
-	libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.so.0'
+	libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.a'
+	deps = dependency('gtk+-3.0')
 endif
 
 
-executable('example1', 'examples/example1.d', link_with : libuid, link_args: [libui_args], include_directories : [examples_dir, sources_dir])
-executable('example2', 'examples/example2.d', link_with : libuid, link_args: [libui_args], include_directories : [examples_dir, sources_dir])
+executable('example1', 'examples/example1.d', link_with : [libuid], dependencies : deps, 
+		link_args: [libui_args], include_directories : [examples_dir, sources_dir], install : true)
+executable('example2', 'examples/example2.d', link_with : [libuid], dependencies : deps, 
+		link_args: [libui_args], include_directories : [examples_dir, sources_dir], install : true)
