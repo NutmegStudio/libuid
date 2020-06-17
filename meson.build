@@ -64,7 +64,6 @@ if libuid_OS == 'windows'
 elif libuid_OS == 'darwin'
 	pass
 else
-	libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.a'
 	deps = dependency('gtk+-3.0')
 endif
 
