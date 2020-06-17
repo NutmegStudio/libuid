@@ -60,10 +60,10 @@ libuid = static_library('libuid',libuid_sources, include_directories : sources_d
 
 libuid_OS = host_machine.system()
 
-if libui_OS == 'windows'
+if libuid_OS == 'windows'
 	libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.dll'
-elif libui_OS == 'darwin'
-	libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.dylib
+elif libuid_OS == 'darwin'
+	libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.A.dylib'
 else
 	libui_args = '-L=' + meson.current_build_dir() + '/meson-out/libui.so.0'
 endif
