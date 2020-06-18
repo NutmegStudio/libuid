@@ -62,23 +62,20 @@ sources_dir = include_directories('source/')
 examples_dir = include_directories('examples/')
 
 libuid = static_library('libuid', libuid_sources, include_directories : sources_dir, 
-		link_args: ['-l:' + meson.current_build_dir() + '/meson-out/libui.a'], install : false)
+		link_args: ['-l:' + meson.current_build_dir() + '/meson-out/liblibui.a'], install : false)
 
 # TODO: add support for Windows and Mac dynamic library
 
 libuid_OS = host_machine.system()
 
-
+	libui_args = ['-L=' + meson.current_build_dir() + '/subprojects/libui/libui.a']
 if libuid_OS == 'windows'
-	libui_args = ['-L=' + meson.current_build_dir() + '/meson-out/libui.a']
 	deps = []
 elif libuid_OS == 'darwin'
-	libui_args = ['-L=' + meson.current_build_dir() + '/subprojects/libui/libui.a']
 	libui_args += ['-L-framework']
 	libui_args += ['-LAppKit']
 	deps = []
 else
-	libui_args = ['-L=' + meson.current_build_dir() + '/meson-out/libui.a']
 	deps = dependency('gtk+-3.0')
 endif
 
